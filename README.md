@@ -1,150 +1,98 @@
 # ARM7_LPC2148
 
-__1. Title: Traffic Light System Using LPC2148__
+__1. Title: Led Light bilinking System Using LPC2148__
 
-Objective: Design a traffic light system using Red, Yellow, and Green LEDs that mimic real-world traffic signals.
+*Objective:* To understand and implement LED control using a microcontroller by turning it on and off at a fixed interval.
 
-Functional Requirements:
-- The Red LED should turn ON for 5 seconds (Stop Signal).
-- After that, the Yellow LED should turn ON for 2 seconds (Get Ready Signal).
-- The Green LED should turn ON for 5 seconds (Go Signal).
-- The cycle should repeat continuously.
+__Hardware Connection:__
+ - LPC2129 P0.7 --> LED
+ - LED --> GND
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------
-__2. Title: Counter Control System Using LPC2148__
+__Software Simulation:__
 
-Objective:
-Write an Embedded C program that performs the following functions:
+![image](https://github.com/user-attachments/assets/f485e25e-c045-4cff-baaf-f41cabf6eb34)
 
-- Switch 1 → Resets the counter to zero.
-- Switch 2 → Increments the counter by one.
-- Switch 3 → Decrements the counter by one.
-- Display the counter value on display.
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------
-__3. Title: Seven Segment Display - Counting 0 to 9 Using LPC2148__
+__Hardware Simulation:__
 
-Objective:
-Write an Embedded C  program to interface a 7-segment display with LPC2148 that:
+![WhatsApp Image 2025-03-27 at 14 37 50_253a72af](https://github.com/user-attachments/assets/086393bd-ca7c-40ee-8d0e-55f79af4a6e9)
 
-- Displays digits from 0 to 9 sequentially.
-- Each digit should be displayed with a 1-second delay.
-- The sequence should continuously repeat.
+__Code:__
+```
+#include <lpc21xx.h>
+void delay_s(unsigned int dly)
+{
+	dly=dly*12000000;
+	while(dly--);
+}
+#define LED 7
+int main()
+{
+	IODIR0 |=1<<LED;
+	while(1)
+	{
+		IOSET0=1<<LED;
+		delay_s(1);
+		IOCLR0=1<<LED;
+		delay_s(1);
+	}
+}
+```
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------
-__4. Title: LCD Interfacing with LPC2148__
+_________________________________________________________________________________________________________________________________________________________________________
 
-Objective:
-Write an Embedded C  program to interface a 16x2 LCD display with LPC2148 that performs the following tasks:
+__2. Title: Traffic Light System Using 2148__
 
-- Display the message "Hello World!" on the first row of the LCD.
-- Continuously update the second row with a counter value that increments every second.
-- Implement a clear screen feature using a push button that resets the counter and clears the LCD display.
+*Objective:* Design a traffic light system using Red, Yellow, and Green LEDs that mimic real-world traffic signals. 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------
-__5. Title: Basic Calculator Using LPC2148 and Keypad with LCD Display__
+__Hardware Connection:__
+ - LPC2129 P0.10 --> LED red
+ - LPC2129 P0.11 --> LED yellow
+ - LPC2129 P0.12 --> LED green
+ - LED --> GND
 
-Objective:
-Write an Embedded C  program to implement a basic calculator that performs the following arithmetic operations using a 4x4 keypad and a 16x2 LCD display:
+__Software Simulation:__
 
-- Addition (+)
-- Subtraction (-)
-- Multiplication (*)
-- Division (/)
-  
-Functional Requirements:
-- The user should enter the first number.
-- The user should then press an operator key (+, -, *, /).
-- The user should enter the second number.
-- Pressing the ‘#’ key should display the result on the LCD.
-- Pressing the ‘*’ key should clear the display and reset the calculator.
+![image](https://github.com/user-attachments/assets/acad53e2-bd15-44ed-8595-1399c0006f53)
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------
-__6. Title: DC Motor Control System Using LPC2148__
-Objective:
-Write an Embedded C  program to interface a DC motor with LPC2148 that performs the following tasks:
+__Hardware Simulation:__
 
-Use a 3-way switch system to control motor actions:
-- Switch 1 → Start the motor in Clockwise direction.
-- Switch 2 → Start the motor in Anti-clockwise direction.
-- Switch 3 → Stop the motor.
+![WhatsApp Image 2025-03-27 at 14 37 50_22a8a5b2](https://github.com/user-attachments/assets/f0134f17-141d-4021-8ee5-f8dd9fb27309)
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------
-__7. Title: Servo Motor Control Using LPC2148__
+__Code:__
+```
+#include <lpc21xx.h>
+#define RED_LED    (1 << 10)  // P0.10
+#define YELLOW_LED (1 << 11)  // P0.11
+#define GREEN_LED  (1 << 12)  // P0.12
+void delay_ms(unsigned int ms)
+{
+    unsigned int i, j;
+    for (i = 0; i < ms; i++)
+    {
+        for (j = 0; j < 1000; j++); // Rough delay loop
+    }
+}
+int main(void)
+{
+    // Configure P0.10, P0.11, P0.12 as output
+    IO0DIR |= (RED_LED | YELLOW_LED | GREEN_LED);
+    while (1)
+    {
+        // Red LED ON (Stop Signal)
+        IO0SET = RED_LED;
+        IO0CLR = YELLOW_LED | GREEN_LED;
+        delay_ms(5000);
+        // Yellow LED ON (Get Ready Signal)
+        IO0SET = YELLOW_LED;
+        IO0CLR = RED_LED | GREEN_LED;
+        delay_ms(2000);
+        // Green LED ON (Go Signal)
+        IO0SET = GREEN_LED;
+        IO0CLR = RED_LED | YELLOW_LED;
+        delay_ms(5000);
+    }
+}
+```
+_____________________________________________________________________________________________________________________________________________________________________________
 
-Objective:
-Write an Embedded C program to interface a servo motor with the LPC2148 that performs the following tasks using push buttons:
-
-- Button 1 → Move the servo motor to 0° position.
-- Button 2 → Move the servo motor to 90° position.
-- Button 3 → Move the servo motor to 180° position.
-- Display the servo angle on a connected LCD display
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------
-__8. Title: Stepper Motor Control System Using LPC2148__
-Objective:
-Write an Embedded C  program to interface a Stepper motor with LPC2148 that performs the following tasks:
-
-Use a 3-way switch system to control motor actions:
-- Switch 1 → Start the motor in Clockwise direction.
-- Switch 2 → Start the motor in Anti-clockwise direction.
-- Switch 3 → Stop the motor.
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------
-__9. Title: Temperature Sensor (LM35) Interfacing with LPC2148__
-
-Objective:
-Write an Embedded C program to interface an LM35 Temperature Sensor with the Arduino Uno that performs the following tasks:
-
-- Continuously read the temperature value from the LM35 sensor.
-- Display the temperature value on an LCD display or Serial Monitor.
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------
-__10. Title: DHT11 Temperature and Humidity Sensor Interfacing with LPC2148__
-
-Objective:
-Write an Embedded C program to interface a DHT11 Temperature and Humidity Sensor with the LPC2148 that performs the following tasks:
-
-- Read temperature and humidity data from the DHT11 sensor.
-- Display the sensor readings on an LCD display.
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------
-__11. Title: Fire Sensor Interfacing with LPC2148__
-
-Objective:
-Write an Embedded C program to interface a Fire Sensor (Flame Sensor) with the LPC2148 that performs the following tasks:
-
-- Detect the presence of fire or flame using the fire sensor.
-- Display "Fire Detected" or "No Fire" on an LCD display or Serial Monitor.
-- If fire is detected, activate a buzzer or LED alert for warning.
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------
-__12. Title: Sharp Distance Sensor Interfacing with LPC2148__
-
-Objective:
-Write an Embedded C program to interface a Sharp Distance Sensor with the LPC2148 that performs the following tasks:
-
-- Continuously read the distance value from the Sharp Distance Sensor.
-- Display the distance value (in cm) and voltage (in V) on an LCD display.
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------
-__13. Title: IR Sensor (Infrared Sensor) Object Detection with LPC2148__
-
-Objective:
-Write an Embedded C program to interface an IR Sensor with the LPC2148 that performs the following tasks:
-
-- Detect the presence of an object using the IR sensor.
-- Display "Object Detected" or "No Object" on an LCD display or Serial Monitor.
-- If an object is detected, activate a buzzer or LED alert for indication.
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------
-__14. Title: Ultrasonic Sensor (HC-SR04) Interfacing with LPC2148__
-
-Objective:
-Write an Embedded C program to interface an Ultrasonic Sensor (HC-SR04) with the LPC2148 that performs the following tasks:
-
-- Measure the distance of an object in centimeters (cm) using the ultrasonic sensor.
-- Display the measured distance on an LCD display or Serial Monitor.
-- If the detected distance is less than 10 cm, activate a buzzer or LED alert for warning.
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------
