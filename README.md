@@ -986,4 +986,121 @@ main()
 
 ____________________________________________________________________________________________________________________________________________________________________________
 
+__17. Title: Fastest Finger First Timer using LCD and LPC2148 Microcontroller__
+
+*Objective:* The objective of this project is to develop a "Fastest Finger First" timer using an LCD display and an LPC21xx microcontroller. The system:
+
+1. Displays a starting message on the LCD.
+2. Waits for the trigger switch to be pressed to start the timer.
+3. Continuously increments and displays the elapsed time in seconds and milliseconds.
+4. Stops the timer when the stop switch is pressed and holds the final time on the display.
+5. Resets for the next round after recording the reaction time.
+
+__Hardware connection:__
+ - LPC2148 P0.8 --> d0
+ - LPC2148 P0.9 --> d1
+ - LPC2148 P0.10 --> d2
+ - LPC2148 P0.11 --> d3
+ - LPC2148 P0.12 --> d4
+ - LPC2148 P0.13 --> d5
+ - LPC2148 P0.14 --> d6
+ - LPC2148 P0.15 --> d7
+ - LPC2148 P0.16 --> RS
+ - LPC2148 P0.17 --> R/W
+ - LPC2148 P0.18 --> EN
+ - LPC2148 P1.16 --> switch 1
+ - LPC2148 P1.17 --> switch 1
+ - LPC2148 GND --> GND
+
+__Software simulation:__
+
+![image](https://github.com/user-attachments/assets/634e4f51-7d72-4b1d-ace0-49156f08663f)
+
+__Hardware Simulation:__
+
+![IMG-20250331-WA0084](https://github.com/user-attachments/assets/c1e174ad-c794-47b0-b60c-4062c4f89168)
+
+![IMG-20250331-WA0085](https://github.com/user-attachments/assets/d25306ca-e8a6-4b64-ae34-3a930e86c0b1)
+
+__Project Code:__
+```
+// fastest_finger_first_lcd.c
+
+#include "lcd.h"
+#include "lcd_defines.h"
+#include "delay.h"
+#include <stdlib.h>
+#include <LPC21xx.h>
+
+#define TRIG_SW_AL 16    // Trigger switch at P1.16
+#define STOP_SW_AL 17    // Stop switch at P1.17
+
+void disp_time(u32 sec, u32 millisec);
+
+main()
+{
+    u32 millisec = 0, sec = 0, flag = 0;
+    InitLCD();             // Initialize LCD
+    StrLCD("Fast Finger 15+"); // Display initial text
+    
+    while (1)
+    {
+        disp_time(sec, millisec);
+
+        if (((IOPIN1 >> TRIG_SW_AL) & 1) == 0)   // Trigger switch pressed
+        {
+            flag = 1;
+            while (((IOPIN1 >> TRIG_SW_AL) & 1) == 0)
+            {
+                disp_time(sec, millisec);  // Keep displaying the time while pressed
+            }
+
+            while (flag == 1)
+            {
+                for (sec = 0; sec < 10; sec++)
+                {
+                    if (((IOPIN1 >> STOP_SW_AL) & 1) == 0)   // Stop switch pressed
+                    {
+                        flag = 2;
+                        while (((IOPIN1 >> STOP_SW_AL) & 1) == 0)
+                        {
+                            disp_time(sec, millisec);  // Continue displaying during stop hold
+                        }
+                        break;
+                    }
+
+                    if (flag == 2)
+                    {
+                        flag = 3;
+                        break;
+                    }
+
+                    if (flag == 3)
+                    {
+                        flag = 0; // Reset the flag for the next round
+                        break;
+                    }
+
+                    // Increment the milliseconds to simulate timing
+                    for (millisec = 0; millisec < 10; millisec++)
+                    {
+                        delay_ms(100);  // Simulate 100ms delay for each millisecond step
+                        disp_time(sec, millisec);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Function to Display Time on LCD
+void disp_time(u32 sec, u32 millisec)
+{
+    CmdLCD(GOTO_LINE2_POS0); // Move cursor to line 2, position 0
+    U32LCD(sec);             // Display seconds
+    CharLCD('.');            // Decimal point
+    U32LCD(millisec);        // Display milliseconds
+}
+```
+________________________________________________________________________________________________________________________________________________________________________
 
