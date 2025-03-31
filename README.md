@@ -94,5 +94,11 @@ int main(void)
     }
 }
 ```
-_____________________________________________________________________________________________________________________________________________________________________________
+___________________________________________________________________________________________________________________________________________________________
 
+__3. Title: LED Binary Counter (1 to 255) Using LPC2148__
+
+*Objective:*\
+To interface 8 LEDs with the LPC21xx microcontroller and display binary counting from 1 to 255 by toggling the LEDs accordingly. The program configures Port 0 (pins P0.4 to P0.11) as output and sequentially updates the LED states in a loop with a delay of 100ms between each count.
+
+__Hardware Connection__
