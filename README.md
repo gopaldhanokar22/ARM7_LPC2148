@@ -1194,9 +1194,11 @@ __19. Title: 4x4 Matrix Keypad Interface and Display Test Using LPC2148 and LCD_
 
 __Hardware Connections:__
 Keypad connections: 
+
 ![image](https://github.com/user-attachments/assets/c4347693-b5e6-42a5-8e6f-3629d536a9aa)
 
 Lcd Connections: 
+
 ![image](https://github.com/user-attachments/assets/c2aed01d-0a61-47e8-8472-fda7890923bb)
 
 __Software Simulation:__
@@ -1247,9 +1249,11 @@ __20. Title: SMS-Style Text Entry Using 4x4 Keypad and LCD with LPC2148__
 
 __Hardware Connections:__
 Keypad connections: 
+
 ![image](https://github.com/user-attachments/assets/c4347693-b5e6-42a5-8e6f-3629d536a9aa)
 
 Lcd Connections: 
+
 ![image](https://github.com/user-attachments/assets/c2aed01d-0a61-47e8-8472-fda7890923bb)
 
 __Software Simulation:__
