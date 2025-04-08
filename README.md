@@ -1192,7 +1192,7 @@ __19. Title: 4x4 Matrix Keypad Interface and Display Test Using LPC2148 and LCD_
 
 *objective:* To interface a 4x4 matrix keypad with the LPC2148 ARM7 microcontroller and display the key pressed on a 16x2 LCD. This project verifies the correct detection of key presses through a scanning method and demonstrates the real-time display of the pressed key’s code, helping in validating keypad functionality for embedded input systems.
 
-__Hardware Connections:__
+__Hardware Connections:__\
 Keypad connections: 
 
 ![image](https://github.com/user-attachments/assets/c4347693-b5e6-42a5-8e6f-3629d536a9aa)
@@ -1247,7 +1247,7 @@ __20. Title: SMS-Style Text Entry Using 4x4 Keypad and LCD with LPC2148__
 
 *objective:* To implement an SMS-style multi-tap text input system using a 4x4 matrix keypad and a 16x2 character LCD interfaced with the LPC2148 ARM7 microcontroller. The project emulates the input behavior of traditional mobile keypads where multiple characters are mapped to a single key. Each press within a short duration cycles through the associated characters, which are then displayed on the LCD.
 
-__Hardware Connections:__
+__Hardware Connections:__\
 Keypad connections: 
 
 ![image](https://github.com/user-attachments/assets/c4347693-b5e6-42a5-8e6f-3629d536a9aa)
