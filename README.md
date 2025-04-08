@@ -1103,4 +1103,222 @@ void disp_time(u32 sec, u32 millisec)
 }
 ```
 ________________________________________________________________________________________________________________________________________________________________________
+__18.Title: Fastest Finger First System Using LPC2148 with 7-Segment Display__
 
+*Objective:* To develop a Fastest Finger First system using the LPC2148 ARM7 microcontroller that measures and displays a participant’s reaction time. The system begins timing when a trigger switch is pressed and stops when the stop switch is activated. The elapsed time (in seconds and milliseconds) is displayed on a 4-digit multiplexed 7-segment display, simulating a game show-style buzzer system for capturing the fastest response time.
+
+__Hardware Connection:__
+ - LPC2148 P0.8 --> a
+ - LPC2148 P0.9 --> b
+ - LPC2148 P0.10 --> c
+ - LPC2148 P0.11 --> d
+ - LPC2148 P0.12 --> e
+ - LPC2148 P0.13 --> f
+ - LPC2148 P0.14 --> g
+ - LPC2148 P0.15 --> dp
+ - LPC2148 P1.16 --> active switch 1
+ - LPC2148 P1.17 --> active switch 2
+
+__Software Connection:__
+
+![image](https://github.com/user-attachments/assets/9e1c6f60-afbf-427b-93fe-872d8049eab0)
+
+__Hardware Simulation:__
+
+![WhatsApp Image 2025-04-08 at 23 42 38_c64f3c70](https://github.com/user-attachments/assets/7d0ab7f8-c50c-4a19-947c-42932d2dfd58)
+
+![WhatsApp Image 2025-04-08 at 23 42 38_9bb08799](https://github.com/user-attachments/assets/7339f860-743c-482e-88e2-379e4cd8a740)
+
+__Project code:__
+```
+//fastest_finger_first.c
+#include <LPC21xx.h>
+#include "types.h"
+#include "delay.h"
+#include "seg.h"
+#define TRIG_SW_AL 16//p1.16
+#define STOP_SW_AL 17//p1.17
+main()
+{
+	u32 millisec=0,sec=0,flag;
+	init_4_mux_segs();
+	while(1)
+	{	
+		disp_time(sec,millisec);
+		if(((IOPIN1>>TRIG_SW_AL)&1)==0)
+		{
+		 flag=1;	
+     while(((IOPIN1>>TRIG_SW_AL)&1)==0)
+     {
+			 disp_time(sec,millisec);
+     }
+	  }	
+		
+		while(flag==1)
+		{	
+			for(sec=0;sec<10;sec++)
+			{
+			 for(millisec=0;millisec<1000;millisec+=4)
+			 {
+				disp_time(sec,millisec);
+				if(((IOPIN1>>STOP_SW_AL)&1)==0)
+		    {
+		      flag=2;	
+          while(((IOPIN1>>STOP_SW_AL)&1)==0)
+          {
+			     disp_time(sec,millisec);
+					 break;	
+          }
+	      }
+        if(flag==2)
+        {
+          flag=3;
+          break;					
+		    }
+			 }
+			 if(flag==3)
+       {
+          flag=0;
+          break;					
+		   }
+			}
+    }
+  } 		
+}
+```
+
+_________________________________________________________________________________________________________________________________________
+__19. Title: 4x4 Matrix Keypad Interface and Display Test Using LPC2148 and LCD__
+
+*objective:* To interface a 4x4 matrix keypad with the LPC2148 ARM7 microcontroller and display the key pressed on a 16x2 LCD. This project verifies the correct detection of key presses through a scanning method and demonstrates the real-time display of the pressed key’s code, helping in validating keypad functionality for embedded input systems.
+
+__Hardware Connections:__
+Keypad connections: 
+![image](https://github.com/user-attachments/assets/c4347693-b5e6-42a5-8e6f-3629d536a9aa)
+
+Lcd Connections: 
+![image](https://github.com/user-attachments/assets/c2aed01d-0a61-47e8-8472-fda7890923bb)
+
+__Software Simulation:__
+
+![image](https://github.com/user-attachments/assets/685aa0f3-0a46-4ca3-84e2-62e18c0a5a6d)
+
+__Hardware Simulation:__
+
+![WhatsApp Image 2025-04-08 at 23 57 28_62acccc8](https://github.com/user-attachments/assets/d775de48-e8e5-42e7-a0f9-93bbaef4dc5c)
+
+![WhatsApp Image 2025-04-08 at 23 57 29_05a52c30](https://github.com/user-attachments/assets/9628f43d-fb9c-4faf-811d-c974acb215cd)
+
+__Project code:__
+```
+//kpm_test_1.c
+#include <LPC21xx.H>
+#include "types.h"
+#include "lcd_defines.h"
+#include "lcd.h"
+#include "kpm.h"
+#include "delay.h"
+
+main()  
+{
+    u32 key;  // Corrected variable declaration
+    InitLCD(); // Initialize LCD
+    InitKPM(); // Initialize Keypad Module
+
+    // Display initial message
+    StrLCD("4x4 KPM TEST"); 
+
+    while(1) 
+    {
+        key = KeyScan(); // Corrected function call for key reading
+        CmdLCD(GOTO_LINE2_POS0); // Move cursor to Line 2, Position 0
+        StrLCD("                "); // Display "..."
+        CmdLCD(GOTO_LINE2_POS0); // Reset cursor to Line 2, Position 0
+        U32LCD(key);  // Display the key value on LCD
+				delay_ms(100);
+		while(ColScan()==0);
+    }
+}
+```
+________________________________________________________________________________________________________________________________
+__20. Title: SMS-Style Text Entry Using 4x4 Keypad and LCD with LPC2148__
+
+*objective:* To implement an SMS-style multi-tap text input system using a 4x4 matrix keypad and a 16x2 character LCD interfaced with the LPC2148 ARM7 microcontroller. The project emulates the input behavior of traditional mobile keypads where multiple characters are mapped to a single key. Each press within a short duration cycles through the associated characters, which are then displayed on the LCD.
+
+__Hardware Connections:__
+Keypad connections: 
+![image](https://github.com/user-attachments/assets/c4347693-b5e6-42a5-8e6f-3629d536a9aa)
+
+Lcd Connections: 
+![image](https://github.com/user-attachments/assets/c2aed01d-0a61-47e8-8472-fda7890923bb)
+
+__Software Simulation:__
+
+![image](https://github.com/user-attachments/assets/685aa0f3-0a46-4ca3-84e2-62e18c0a5a6d)
+
+__Hardware Simulation:__
+
+![WhatsApp Image 2025-04-08 at 23 57 29_f4e65783](https://github.com/user-attachments/assets/34cf6090-f53c-484f-a311-740d34c7a823)
+
+![WhatsApp Image 2025-04-08 at 23 57 29_0e66f9f0](https://github.com/user-attachments/assets/9d714f18-1e49-4b7f-9967-504bbc3adba2)
+
+__Project code:__
+```
+//sms_keypad_test.c
+#include <LPC21xx.h>
+#include "kpm.h"
+#include "lcd.h"
+#include "kpm_defines.h"
+#include "lcd_defines.h"
+#include "kpm.h"
+
+extern s32 presskey, khcount;
+
+int main()
+{
+    u32 dlyms = 250;
+    s32 pos = -1;
+
+    InitLCD();
+		InitKPM();
+    StrLCD("SMS Keypad");
+
+    while(1)
+    {
+        khcount = -1;
+        while (ColScan());
+
+        for (dlyms = 12000 * 250; dlyms > 0; dlyms--);
+
+        // Re-initialize all rows
+        IOCLR1 = 0xF << ROW0;
+        if (!ColScan())
+        {
+            if (khcount == 3)
+            {
+                khcount = -1;
+            }
+            else if (khcount == -1)
+            {
+                pos++;
+                if (pos> 15)
+                {
+                    CmdLCD(GOTO_LINE2_POS0);
+                    StrLCD("                ");
+                    CmdLCD(GOTO_LINE2_POS0);
+                    pos = 0;
+                }
+            }
+
+            khcount++;
+            presskey = KeyScan();
+            CmdLCD(GOTO_LINE2_POS0 + pos);
+            CharLCD(presskey);
+            while (!ColScan());
+
+            dlyms = 12000 * 250;
+        }
+    }
+}
+```
+____________________________________________________________________________________________________________________________________________________________________________
