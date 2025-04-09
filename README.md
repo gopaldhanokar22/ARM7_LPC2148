@@ -1326,3 +1326,102 @@ int main()
 }
 ```
 ____________________________________________________________________________________________________________________________________________________________________________
+
+__21. Title: ADC Value Display on LCD using LPC2148__
+
+*objective:* To develop a test application that reads analog input values through the ADC channel of the LPC2148 microcontroller and displays both the digital ADC value and its equivalent analog voltage (in float format) on a 16x2 character LCD. This verifies the functionality of the ADC module and LCD interfacing in real-time.
+
+__Hardware Conncections:__\
+Lcd Connections: 
+
+![image](https://github.com/user-attachments/assets/c2aed01d-0a61-47e8-8472-fda7890923bb)
+
+Potential Meter: Connect with LPC2148 P0.28
+
+__Software Simulation:__
+
+![image](https://github.com/user-attachments/assets/da369ff3-9d9a-490c-a287-72e6ce2d9f1c)
+
+__Hardware Simulation:__
+
+![WhatsApp Image 2025-04-09 at 21 09 58_d8c0977e](https://github.com/user-attachments/assets/6e06c3d2-c1a8-43e2-815f-b5d563eb5152)
+
+![WhatsApp Image 2025-04-09 at 21 09 59_5e0b7db7](https://github.com/user-attachments/assets/30cf1f74-5ac5-465b-afb8-44642c0bcdad)
+
+
+__Project Code:__
+```
+//lcd_adc_test.c
+#include "adc.h"
+#include "lcd_defines.h"
+#include "lcd.h"
+#include "delay.h"
+f32 eAR;
+u32 adcVal;
+main()
+{
+	InitLCD();
+	Init_ADC();
+	StrLCD("ADC TEST :");
+	while(1)
+	{
+		Read_ADC(0,&adcVal,&eAR);
+		CmdLCD(GOTO_LINE2_POS0);
+		U32LCD(adcVal);
+		CmdLCD(GOTO_LINE2_POS0+8);
+		F32LCD(eAR,3);
+		delay_ms(100);
+		CmdLCD(GOTO_LINE2_POS0);
+		StrLCD("                ");
+	}	
+}
+```
+
+_________________________________________________________________________________________________________________________________________________________________________________
+
+__22.Title: Temperature Monitoring using LM35 Sensor and LPC2148 with LCD Display__
+
+*Objective:* To interface an LM35 temperature sensor with the LPC2148 microcontroller and continuously monitor the ambient temperature. The analog output from the LM35 is read through the ADC, converted to a digital temperature value in degrees Celsius, and displayed on an LCD. This project demonstrates temperature sensing, ADC conversion, and LCD interfacing.
+
+__Harwdare Connections:__\
+lcd connections: 
+
+![image](https://github.com/user-attachments/assets/c2aed01d-0a61-47e8-8472-fda7890923bb)
+
+lm35 connections:\
+	- lm35 out ---> lpc2148 p0.27
+
+ __Software Simulation:__
+
+ ![image](https://github.com/user-attachments/assets/fa5288e7-dc50-43f3-ae82-cc0380cd3a5f)
+
+__Hardware Simulation:__
+
+![WhatsApp Image 2025-04-09 at 21 09 59_d7b16e80](https://github.com/user-attachments/assets/391446bd-bb14-49db-abec-a13a07092024)
+
+__Project Code:__
+```
+// lcd_adc_lm35_test.c
+#include "lm35.h"
+#include "adc.h"
+#include "lcd_defines.h"
+#include "lcd.h"
+#include "delay.h"
+
+main()
+{
+    InitLCD();                       // Initialize LCD
+    StrLCD("LM35 TEST :");           // Display initial text on LCD
+
+    while(1)
+    {
+        CmdLCD(GOTO_LINE2_POS0);     // Move cursor to second line, position 0
+        U32LCD(Read_Temp());        // Display temperature value (in Celsius)
+        StrLCD(" degC");             // Append "degC" text
+    }
+}
+
+```
+
+____________________________________________________________________________________________________________________________________________________________________________
+
