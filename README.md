@@ -41,7 +41,7 @@ int main()
 
 _________________________________________________________________________________________________________________________________________________________________________
 
-__2. Title: Traffic Light System Using 2148__
+__2. Title: Traffic Light System Using LPC2148__
 
 *Objective:* Design a traffic light system using Red, Yellow, and Green LEDs that mimic real-world traffic signals. 
 
