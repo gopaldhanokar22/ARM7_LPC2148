@@ -25,6 +25,8 @@ __INDEX__
 21. Title: ADC Value Display on LCD using LPC2148
 22. Title: Temperature Monitoring using LM35 Sensor and LPC2148 with LCD Display
 23. Title: Distance Measurement using GP2D12 Sensor with LPC2148 and LCD Display
+24. Title: DHT11 Interfacing with LPC2148 for Temperature and Humidity Monitoring
+25. Title: 20x4 LCD Interface with LPC2148 for Multi-Format Data Display
 
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
@@ -1490,3 +1492,29 @@ main()
 
 ```
 ______________________________________________________________________________________________________________________________________________
+
+__24. Title: DHT11 Interfacing with LPC2148 for Temperature and Humidity Monitoring__
+
+*Objective:* To interface the DHT11 digital temperature and humidity sensor with the LPC2148 ARM7 microcontroller, enabling real-time monitoring and display of environmental conditions (temperature in °C and humidity in %) on a character LCD. This project demonstrates single-wire communication, accurate timing using software delays, and embedded system integration of sensor modules with ARM-based microcontrollers.
+
+
+
+
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+__25. Title: 20x4 LCD Interface with LPC2148 for Multi-Format Data Display__
+
+*Objcetive:* To interface a 20x4 alphanumeric LCD with the LPC2148 ARM7 microcontroller and demonstrate the display of various data types and formats including:
+ - Characters and strings
+ - Unsigned and signed integers
+ - Floating-point numbers with configurable precision
+ - Hexadecimal, octal, and binary values
+ - Custom characters using CGRAM
+
+
+
+
+
+
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
