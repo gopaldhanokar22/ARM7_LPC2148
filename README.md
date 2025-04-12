@@ -1,6 +1,32 @@
 # ARM7_LPC2148
 
-__1. Title: Led Light bilinking System Using LPC2148__
+__INDEX__
+
+01. Title: Led Light blinking System Using LPC2148
+02. Title: Traffic Light System Using LPC2148
+03. Title: LED Binary Counter (1 to 255) Using LPC2148
+04. Title: Electronic Dice Using LPC2148
+05. Title: Switch-Controlled LED Using LPC2148
+06. Title: Dual Switch-Controlled LED Using LPC2148
+07. Title: 4 Switches Controlling 4 LEDs Using LPC2148
+08. Title: 7-Segment Display Digit Test Using LPC2148
+09. Title: Dual-Digit 7-Segment Multiplexed Display Test Using LPC2148
+10. Title: Electronic Dice Simulation on 7-Segment Display Using LPC2148
+11. Title: 60-Second Stopwatch Using LPC2148 and 7-Segment Display
+12. Title: 60-Second Timer with Increment, Decrement, and Reset Using LPC2148
+13. Title: LCD Functionality Test Using LPC2148
+14. Title: Displaying Capital Alphabets with ASCII Values on 16x2 LCD
+15. Title: Electronic Dice Simulation Using LCD Display
+16. Title: Scrolling and Oscillating Message Display on LCD Using LPC2148
+17. Title: Fastest Finger First Timer using LCD and LPC2148 Microcontroller
+18. Title: Fastest Finger First System Using LPC2148 with 7-Segment Display
+19. Title: 4x4 Matrix Keypad Interface and Display Test Using LPC2148 and LCD
+20. Title: SMS-Style Text Entry Using 4x4 Keypad and LCD with LPC2148
+21. Title: ADC Value Display on LCD using LPC2148
+22. Title: Temperature Monitoring using LM35 Sensor and LPC2148 with LCD Display
+23. Title: Distance Measurement using GP2D12 Sensor with LPC2148 and LCD Display
+
+__1. Title: Led Light blinking System Using LPC2148__
 
 *Objective:* To understand and implement LED control using a microcontroller by turning it on and off at a fixed interval.
 
