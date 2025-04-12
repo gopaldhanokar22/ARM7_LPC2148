@@ -1425,7 +1425,7 @@ main()
 
 ____________________________________________________________________________________________________________________________________________________________________________
 
-__22.Title: Distance Measurement using GP2D12 Sensor with LPC2148 and LCD Display__
+__23.Title: Distance Measurement using GP2D12 Sensor with LPC2148 and LCD Display__
 
 *Objective:* To interface the Sharp GP2D12 infrared distance sensor with the LPC2148 microcontroller and display the measured distance on an LCD. The analog output from the GP2D12 is read using the ADC, processed to obtain distance in centimeters, and continuously updated on the LCD. This project demonstrates real-time distance sensing and LCD data visualization using ADC. 
 
