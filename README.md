@@ -1497,9 +1497,47 @@ __24. Title: DHT11 Interfacing with LPC2148 for Temperature and Humidity Monitor
 
 *Objective:* To interface the DHT11 digital temperature and humidity sensor with the LPC2148 ARM7 microcontroller, enabling real-time monitoring and display of environmental conditions (temperature in °C and humidity in %) on a character LCD. This project demonstrates single-wire communication, accurate timing using software delays, and embedded system integration of sensor modules with ARM-based microcontrollers.
 
+__Hardware Connection:__\
+lcd Connection:
+
+![image](https://github.com/user-attachments/assets/c2aed01d-0a61-47e8-8472-fda7890923bb)
+
+DHT11 connections:\
+	- DHT11 out ---> lpc2148 p0.10
+
+ __Hardware Simulation:__
 
 
+__Project Code:__
+```
+//dht11_test.c
 
+#include <lpc21xx.h>
+#include "dht11.h"
+#include "delay.h"
+#include "lcd.h"
+
+int main() {
+    u8 temperature, humidity;
+		InitLCD();
+    dht11_init();
+
+    while (1) {
+        dht11_read_data(&temperature, &humidity);
+        CmdLCD(0x80);
+        StrLCD("Temp: ");
+        U32LCD(temperature);
+        StrLCD(" C");
+
+        CmdLCD(0xC0);
+        StrLCD("Humidity: ");
+        U32LCD(humidity);
+        StrLCD(" %");
+
+        delay_ms(2000);
+    }
+}
+```
 
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
@@ -1513,7 +1551,71 @@ __25. Title: 20x4 LCD Interface with LPC2148 for Multi-Format Data Display__
  - Custom characters using CGRAM
 
 
+__Hardware Connection:__\
+lcd Connection:
 
+![image](https://github.com/user-attachments/assets/c2aed01d-0a61-47e8-8472-fda7890923bb)
+
+
+__Software Simulation:__
+
+![image](https://github.com/user-attachments/assets/04d5f0c1-f762-41ae-a59d-79de7f41151e)
+
+__Hardware Simulation:__
+
+
+__Project Code:__
+```
+//lcd 20*4
+
+//lcd_test.c
+#include "lcd.h"
+#include "lcd_defines.h"
+#include "delay.h"
+u8 cgramLUT[8]={0x07,0x04,0x04,0x1f,0x10,0x10,0x10,0x00};
+main()
+{
+	InitLCD();
+	BuildCGRAM(cgramLUT,8);
+	
+	CmdLCD(GOTO_LINE1_POS0);
+	CharLCD('A');
+	CmdLCD(GOTO_LINE1_POS0+5);
+	StrLCD(" V24HE6 ");
+	delay_ms(1000);
+	
+	CmdLCD(GOTO_LINE2_POS0);
+	U32LCD(1234567890);
+	delay_ms(1000);
+	
+	CmdLCD(GOTO_LINE3_POS0);
+	S32LCD(-1234567890);
+	delay_ms(1000);
+	
+	CmdLCD(GOTO_LINE4_POS0);
+	F32LCD(123.456789,6);
+	delay_ms(2000);
+	
+	CmdLCD(CLEAR_LCD);
+	CmdLCD(GOTO_LINE1_POS0);
+	HexLCD(256);
+	delay_ms(1000);
+	
+	CmdLCD(GOTO_LINE2_POS0);
+	OctLCD(65);
+	delay_ms(1000);
+	
+	CmdLCD(GOTO_LINE3_POS0);
+	BinLCD(127,16);
+	delay_ms(1000);
+		
+	CmdLCD(GOTO_LINE4_POS0);
+	CharLCD(0);
+	delay_ms(1000);
+	
+	while(1);
+}
+```
 
 
 
