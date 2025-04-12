@@ -722,7 +722,7 @@ main()
 
 ___________________________________________________________________________________________________________________________________________________
 
-___13. Title: LCD Functionality Test Using LPC2148__
+__13. Title: LCD Functionality Test Using LPC2148__
 
 *Objective:*\
 To interface an LCD with the LPC21xx microcontroller and test various display functionalities, including character, string, integer, floating-point, hexadecimal, octal, and binary number representations. The program initializes the LCD, loads a custom character into CGRAM, and sequentially displays different types of data on the LCD to verify its proper operation.
