@@ -1568,7 +1568,6 @@ __Project Code:__
 ```
 //lcd 20*4
 
-//lcd_test.c
 #include "lcd.h"
 #include "lcd_defines.h"
 #include "delay.h"
