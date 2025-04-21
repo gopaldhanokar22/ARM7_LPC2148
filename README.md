@@ -1507,7 +1507,7 @@ DHT11 connections:\
 
  __Hardware Simulation:__
 
-![Uploading WhatsApp Image 2025-04-21 at 19.26.00_ae02d633.jpg…]()
+![WhatsApp Image 2025-04-21 at 19 26 00_d1edbed1](https://github.com/user-attachments/assets/6bd4879f-be08-4171-a133-b0041103bd66)
 
 
 ![WhatsApp Image 2025-04-21 at 19 26 01_e9b8a0b8](https://github.com/user-attachments/assets/790010fc-5740-46e4-a662-d0098faff79a)
