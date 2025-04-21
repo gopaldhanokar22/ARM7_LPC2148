@@ -1507,6 +1507,11 @@ DHT11 connections:\
 
  __Hardware Simulation:__
 
+![Uploading WhatsApp Image 2025-04-21 at 19.26.00_ae02d633.jpg…]()
+
+
+![WhatsApp Image 2025-04-21 at 19 26 01_e9b8a0b8](https://github.com/user-attachments/assets/790010fc-5740-46e4-a662-d0098faff79a)
+
 
 __Project Code:__
 ```
@@ -1562,6 +1567,12 @@ __Software Simulation:__
 ![image](https://github.com/user-attachments/assets/04d5f0c1-f762-41ae-a59d-79de7f41151e)
 
 __Hardware Simulation:__
+
+![WhatsApp Image 2025-04-21 at 19 26 00_ffbc89a4](https://github.com/user-attachments/assets/5a53465b-c5b9-4b8a-9129-40b9ffa482e3)
+
+![WhatsApp Image 2025-04-21 at 19 26 00_b40147e4](https://github.com/user-attachments/assets/013b961b-96f5-4b25-94bf-fae8e7378b32)
+
+![WhatsApp Image 2025-04-21 at 19 26 01_a15509f4](https://github.com/user-attachments/assets/8a1be8d9-24a7-43bb-8637-ef2c44952061)
 
 
 __Project Code:__
